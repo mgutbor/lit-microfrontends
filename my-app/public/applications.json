@@ -1,0 +1,29 @@
+[
+  {
+    "path": "/page2",
+    "remote": {
+      "url": "/app/my-page/assets/remoteEntry.js",
+      "scope": "myPage",
+      "module": "./myPage",
+      "type": "module"
+    }
+  },
+  {
+    "path": "/my-vue",
+    "remote": {
+      "url": "/app/my-vue/assets/remoteEntry.js",
+      "scope": "myVue",
+      "module": "./myVue",
+      "type": "module"
+    }
+  },
+  {
+    "path": "/my-vue-comp",
+    "remote": {
+      "url": "/app/my-vue-comp/assets/remoteEntry.js",
+      "scope": "myVueComp",
+      "module": "./myVueComp",
+      "type": "module"
+    }
+  }
+]

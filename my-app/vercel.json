@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/app/my-page/(.*)",
+      "destination": "https://my-page.vercel.app/$1"
+    },
+    {
+      "source": "/app/my-vue/(.*)",
+      "destination": "https://my-vue.vercel.app/$1"
+    },
+    {
+      "source": "/app/my-vue-comp/(.*)",
+      "destination": "https://my-vue-comp.vercel.app/$1"
+    }
+  ]
+}
