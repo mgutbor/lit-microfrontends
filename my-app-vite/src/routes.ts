@@ -1,4 +1,4 @@
-import { Commands, Context, Route } from "@vaadin/router";
+import type { Route } from "@vaadin/router";
 
 export * from "./home";
 export * from "./page1";
@@ -24,21 +24,10 @@ export function getRoutes(baseURL: string = "/") {
           },
          {
            path: "/my-vue",
-           // myVue implements the getRoutes function pattern.
            children: () => import("myVue/myVue").then((module) => module.getRoutes(baseURL + 'my-vue'))
-
-           // other possibility would be to implement the action method,
-           // load the myVue Web component
-           // and return it as the route component
-           
-           // action: async (_context: Context, commands: Commands) => {
-           //   const { tag } = await import("myVue/myVue");
-           //   return commands.component(tag);
-           // }
          },
          {
            path: "/my-vue-comp",
-           // myVueComp follows the same getRoutes pattern (returns a route that renders its WC)
            children: () => import("myVueComp/myVueComp").then((module) => module.getRoutes(baseURL + 'my-vue-comp'))
          }
        ],
