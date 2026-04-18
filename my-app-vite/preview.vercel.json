@@ -20,7 +20,7 @@
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "Referrer-Policy", "value": "no-referrer" },
         { "key": "Permissions-Policy", "value": "camera=(), geolocation=(), microphone=(), interest-cohort=()" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' https://<PREVIEW_MY_PAGE_DOMAIN> https://<PREVIEW_MY_VUE_DOMAIN> https://<PREVIEW_MY_VUE_COMP_DOMAIN>; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://<PREVIEW_MY_PAGE_DOMAIN> https://<PREVIEW_MY_VUE_DOMAIN> https://<PREVIEW_MY_VUE_COMP_DOMAIN>; frame-ancestors 'self';" }
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' https://<PREVIEW_MY_PAGE_DOMAIN> https://<PREVIEW_MY_VUE_DOMAIN> https://<PREVIEW_MY_VUE_COMP_DOMAIN> https://<PREVIEW_WC_VC_EC_IND_DOMAIN>; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://<PREVIEW_MY_PAGE_DOMAIN> https://<PREVIEW_MY_VUE_DOMAIN> https://<PREVIEW_MY_VUE_COMP_DOMAIN> https://<PREVIEW_WC_VC_EC_IND_DOMAIN>; frame-ancestors 'self';" }
       ]
     }
   ],
@@ -36,6 +36,10 @@
     {
       "source": "/app/my-vue-comp/(.*)",
       "destination": "https://<PREVIEW_MY_VUE_COMP_DOMAIN>/$1"
+    },
+    {
+      "source": "/app/wc-vc-ec-ind/(.*)",
+      "destination": "https://<PREVIEW_WC_VC_EC_IND_DOMAIN>/$1"
     },
     {
       "source": "/(.*)",

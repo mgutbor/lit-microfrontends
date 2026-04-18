@@ -20,7 +20,7 @@
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "Referrer-Policy", "value": "no-referrer" },
         { "key": "Permissions-Policy", "value": "camera=(), geolocation=(), microphone=(), interest-cohort=()" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' https://my-page-eta-ten.vercel.app https://my-vue-gamma.vercel.app https://my-vue-comp.vercel.app; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://my-page-eta-ten.vercel.app https://my-vue-gamma.vercel.app https://my-vue-comp.vercel.app; frame-ancestors 'self';" }
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' https://my-page-eta-ten.vercel.app https://my-vue-gamma.vercel.app https://my-vue-comp.vercel.app https://wc-vc-ec-ind.vercel.app; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://my-page-eta-ten.vercel.app https://my-vue-gamma.vercel.app https://my-vue-comp.vercel.app https://wc-vc-ec-ind.vercel.app; frame-ancestors 'self';" }
       ]
     }
   ],
@@ -36,6 +36,10 @@
     {
       "source": "/app/my-vue-comp/(.*)",
       "destination": "https://my-vue-comp.vercel.app/$1"
+    },
+    {
+      "source": "/app/wc-vc-ec-ind/(.*)",
+      "destination": "https://wc-vc-ec-ind.vercel.app/$1"
     },
     {
       "source": "/(.*)",
