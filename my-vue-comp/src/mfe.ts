@@ -1,7 +1,6 @@
 export * from "./components";
-import { Commands, Context, Route } from "@vaadin/router";
+import type { Commands, Context, Route } from "@vaadin/router";
 
-// use getRoutes if using vaadin router
 let routes: Route[] | undefined = undefined;
 
 export function getRoutes(baseURL: string = "/") {
@@ -22,3 +21,5 @@ export function getRoutes(baseURL: string = "/") {
 
   return routes;
 }
+
+export default getRoutes;
