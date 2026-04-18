@@ -29,6 +29,7 @@ export default defineConfig({
       remotes: {
         myPage: "/app/my-page/assets/remoteEntry.js",
         myVue: "/app/my-vue/assets/remoteEntry.js",
+        myVueComp: "/app/my-vue-comp/assets/remoteEntry.js",
         dummyApp: "dummy.js",
       },
       shared: ["lit", "lit-html", "lit-element"],

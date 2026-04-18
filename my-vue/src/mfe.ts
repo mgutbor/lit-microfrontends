@@ -65,14 +65,14 @@ function getRoutes(baseURL: string = "/") {
   $baseURL = baseURL;
   console.log("My Vue: getRoutes", baseURL);
 
-  // if (!routes) {
-  //   routes = [
-  //     {
-  //       path: "/",
-  //       component: MyVueTag,
-  //     },
-  //   ];
-  // }
+  if (!routes) {
+    routes = [
+      {
+        path: "/",
+        component: MyVueTag,
+      },
+    ];
+  }
 
   return routes;
 }
