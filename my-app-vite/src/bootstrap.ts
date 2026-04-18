@@ -4,7 +4,7 @@ const outlet = document.createElement("div");
 outlet.id = "outlet";
 document.body.appendChild(outlet);
 
-const router = new Router(outlet);
+export const router = new Router(outlet);
 
 router.setRoutes([
   {

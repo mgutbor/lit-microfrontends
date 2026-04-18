@@ -1,30 +1,25 @@
 import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
 import { federation } from "@module-federation/vite";
 
-const VITE_PORT = +(process.env.VITE_PORT || 3002);
+const VITE_PORT = +(process.env.VITE_PORT || 3003);
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  base: "/app/my-vue-comp/",
+  base: '/app/wc-vc-ec-ind/',
   build: {
     target: "esnext",
   },
   plugins: [
-    vue({
-      template: {
-        compilerOptions: {
-          isCustomElement: (tag) => tag.includes("-"),
-        },
-      },
-    }),
     federation({
-      name: "myVueComp",
+      name: "wcVcEcInd",
       filename: "remoteEntry.js",
       exposes: {
-        "./myVueComp": "./src/mfe.ts",
+        "./wcVcEcInd": "./index.ts",
       },
       shared: {
-        vue: {},
+        lit: {},
+        "lit-html": {},
+        "lit-element": {},
       },
       dts: false,
     }),

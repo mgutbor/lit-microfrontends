@@ -13,10 +13,13 @@ const proxy = {
   "/app/my-vue": {
     target: "http://localhost:3001",
     changeOrigin: true,
-  }
+  },
+  "/app/wc-vc-ec-ind": {
+    target: "http://localhost:3003",
+    changeOrigin: true,
+  },
 };
 
-// https://vitejs.dev/config/
 export default defineConfig({
   build: {
     target: "esnext",
@@ -44,6 +47,11 @@ export default defineConfig({
           name: "myVueComp",
           entry: "/app/my-vue-comp/remoteEntry.js",
         },
+        wcVcEcInd: {
+          type: "module",
+          name: "wcVcEcInd",
+          entry: "/app/wc-vc-ec-ind/remoteEntry.js",
+        },
       },
       shared: {
         lit: {},
@@ -53,7 +61,7 @@ export default defineConfig({
       dts: false,
     }),
   ],
-  server: { 
+  server: {
     proxy,
     fs: {
       allow: [".."],

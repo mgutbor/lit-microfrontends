@@ -1,0 +1,40 @@
+{
+    "name": "wc-vacunas-ecu-indicator",
+    "version": "1.0.0",
+    "description": "Componente ECU Indicator",
+    "main": "index.ts",
+    "module": "index.ts",
+    "types": "index.ts",
+    "type": "module",
+    "author": "STIC",
+    "license": "ISC",
+    "scripts": {
+        "start": "vite",
+        "dev": "concurrently -p\"[{name}]\" -n Build,Preview -c \"bgBlue.bold,bgCyan.bold\"  \"npm run build-watch\" \"npm run preview\"",
+        "clean": "npx rimraf dist node_modules package-lock.json",
+        "build": "tsc && vite build",
+        "build-watch": "vite build --watch",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "lit": "2.8.0",
+        "@sas/wc-stic-ripple": "1.75.0",
+        "@sas/wc-stic-icon": "1.75.0",
+        "@sas/lib-stic-kernel": "1.75.0"
+    },
+    "devDependencies": {
+        "@sas/wc-stic-theme": "1.75.0",
+        "@module-federation/vite": "1.14.4",
+        "@types/node": "25.6.0",
+        "concurrently": "9.2.1",
+        "typescript": "6.0.3",
+        "vite": "8.0.8"
+    },
+    "files": [
+        "dist/**",
+        "LICENSE",
+        "package.json",
+        "README.md",
+        "CHANGELOG.md"
+    ]
+}

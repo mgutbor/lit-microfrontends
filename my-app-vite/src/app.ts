@@ -1,8 +1,11 @@
 import { LitElement, unsafeCSS, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
-// add the `?inline` query parameter to the import to prevent the CSS from being extracted
 import myElementStyle from "./app.style.scss?inline";
+
+import "wcVcEcInd/wcVcEcInd";
+
+import { router } from "./bootstrap";
 
 @customElement("my-app")
 export class MyApp extends LitElement {
@@ -18,6 +21,32 @@ export class MyApp extends LitElement {
     return this.$baseURL;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener(
+      "externalApp:open",
+      this.handleExternalAppOpen as EventListener,
+    );
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener(
+      "externalApp:open",
+      this.handleExternalAppOpen as EventListener,
+    );
+  }
+
+  private handleExternalAppOpen(event: CustomEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    const { url } = event.detail;
+    if (url) {
+      router.render(url);
+    }
+  }
+
   render() {
     return html`
       <div class="app">
@@ -28,10 +57,15 @@ export class MyApp extends LitElement {
           <a href="${this.baseURL}my-vue">My Vue</a>
           <a href="${this.baseURL}my-vue-comp">My Vue Comp</a>
         </nav>
+        <div class="ecu-indicator-container">
+          <wc-vacunas-ecu-indicator
+            url="/my-vue-comp"
+            .vaccinationStatus=${["Bien vacunado", "Vacunas pendientes"]}
+            systemId="Vacunas"
+          ></wc-vacunas-ecu-indicator>
+        </div>
         <div class="slot">
-          <slot>
-            <!-- Children elements are projected here -->
-          </slot>
+          <slot></slot>
         </div>
       </div>
     `;

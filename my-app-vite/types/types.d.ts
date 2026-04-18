@@ -34,7 +34,6 @@ declare module "*.css?inline" {
   export default css;
 }
 
-// types/myPage.d.ts
 declare module "myPage/myPage" {
   import { Route } from "@vaadin/router";
   export function getRoutes(baseURL: string = "/"): Array<Route>;

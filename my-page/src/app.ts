@@ -1,7 +1,6 @@
 import { LitElement, html, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
-// add the `?inline` query parameter to the import to prevent the CSS from being extracted
 import myPageStyle from "./app.style.scss?inline";
 
 @customElement("my-page")
@@ -27,9 +26,7 @@ export class MyPage extends LitElement {
           <a href="${this.baseURL}sub-page2">Sub Page 2</a>
         </nav>
         <div class="slot">
-          <slot>
-            <!-- Children elements are projected here -->
-          </slot>
+          <slot></slot>
         </div>
       </div>
     `;
