@@ -48,3 +48,9 @@ declare module "myVue/myVue" {
   export { tag, getRoutes };
   export default getRoutes;
 }
+
+declare module "myVueComp/myVueComp" {
+  import { Route } from "@vaadin/router";
+  export function getRoutes(baseURL: string = "/"): Array<Route>;
+  export default getRoutes;
+}
