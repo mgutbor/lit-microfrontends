@@ -6,7 +6,7 @@ export * from "./app";
 
 let routes: Route[] | undefined = undefined;
 
-export function getRoutes(baseURL: string = "/") {
+export function getRoutes(baseURL: string = "/"): Route[] {
   if (!routes) {
     routes = [
       {
@@ -18,17 +18,17 @@ export function getRoutes(baseURL: string = "/") {
           {
             path: "/page2",
             children: () =>
-              import("myPage/myPage").then((module) => {
+              import("myPage/myPage").then((module: any) => {
                 return module.getRoutes(baseURL + "page2");
               }),
           },
          {
            path: "/my-vue",
-           children: () => import("myVue/myVue").then((module) => module.getRoutes(baseURL + 'my-vue'))
+           children: () => import("myVue/myVue").then((module: any) => module.getRoutes(baseURL + 'my-vue'))
          },
          {
            path: "/my-vue-comp",
-           children: () => import("myVueComp/myVueComp").then((module) => module.getRoutes(baseURL + 'my-vue-comp'))
+           children: () => import("myVueComp/myVueComp").then((module: any) => module.getRoutes(baseURL + 'my-vue-comp'))
          }
        ],
       },

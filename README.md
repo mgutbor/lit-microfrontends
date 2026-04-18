@@ -1,28 +1,56 @@
 # mfe-lit
 
-Este proyecto es una Prueba de Concepto (PoC) de una implementación de arquitectura Micro-Frontend usando la librería Lit, la herramienta de construcción Vite y Module Federation.
+Este proyecto es una Prueba de Concepto (PoC) de una implementación de arquitectura Micro-Frontend usando la librería Lit, la herramienta de construcción Vite y Module Federation 2.0.
+
+> **🎉 Actualizado a Module Federation 2.0** - Migrado de `@originjs/vite-plugin-federation` (abandonado) a `@module-federation/vite` (oficial y activamente mantenido).
 
 ## Entorno
 
-- Node.js 18.19.1
-- npm 10.2.4
+> ⚠️ **Importante:** Vite 8.x requiere Node.js 20.20.2 o superior
+
+### Versiones Recomendadas
+
+- **Node.js:** `20.20.2` o superior (LTS - Recomendado)
+- **npm:** `10.8.2` o superior
+
+### Alternativa (Más Reciente)
+
+- **Node.js:** `22.12.0` o superior
+- **npm:** `11.x` o superior
+
+## Stack Tecnológico Actual
+
+- **Vite:** 8.0.8
+- **TypeScript:** 6.0.3
+- **Module Federation:** @module-federation/vite 1.14.4
+- **Lit:** 3.3.2
+- **Vue:** 3.5.32
+- **@vaadin/router:** 2.0.1
 
 ## Inicio Rápido
 
 ```bash
 # clonar el repositorio en la máquina local
-git clone git@github.com:callebedrums/mfe-lit.git
+git clone git@github.com:mgutbor/lit-microfrontends.git
+
+# eliminar residuos de dependencias
+cd ./my-app-vite && npm run clean && cd ../
+cd ./my-page && npm run clean && cd ../
+cd ./my-vue && npm run clean && cd ../
+np
 
 # instalar dependencias
-cd ./my-app && npm install && cd ../
+cd ./my-app-vite && npm install && cd ../
 cd ./my-page && npm install && cd ../
 cd ./my-vue && npm install && cd ../
+cd ./my-vue-comp && npm install && cd ../
 
 # ejecutar los siguientes comandos en terminales separadas
 
-cd ./my-app && npm run dev
+cd ./my-app-vite && npm run dev
 cd ./my-page && npm run dev
 cd ./my-vue && npm run dev
+cd ./my-vue-comp && npm run dev
 ```
 
 ## Acerca del Proyecto
@@ -81,31 +109,32 @@ La aplicación MFE debe exponer un punto de entrada remoto siguiendo el estánda
 
 ```typescript
 // ejemplo de exportación de getComponents
-export * from 'my-component.ts';
+export * from "my-component.ts";
 
 /** estableciendo baseUrl como predeterminado en caso de que la app se ejecute fuera de la arquitectura MFE */
-export function getComponents(baseUrl: string = '/') {
+export function getComponents(baseUrl: string = "/") {
   // podemos usar el baseUrl para iniciar cualquier servicio interno, o incluso decidir qué componente devolver
-  return 'my-component';
+  return "my-component";
 }
-
 
 // ejemplo de exportación de getRoutes
 import { Commands, Context, Route } from "@vaadin/router";
-export * from 'my-first-component.ts';
-export * from 'my-second-component.ts';
+export * from "my-first-component.ts";
+export * from "my-second-component.ts";
 
 let routes: Route[] | undefined = undefined;
 
-export function getRoutes(baseUrl: string = '/') {
+export function getRoutes(baseUrl: string = "/") {
   // establecer rutas solo una vez
   if (!routes) {
     routes = [
       {
-        path: '/', component: 'my-first-component',
-        path: '/second-path', component: 'my-second-component'
-      }
-    ]
+        path: "/",
+        component: "my-first-component",
+        path: "/second-path",
+        component: "my-second-component",
+      },
+    ];
   }
 
   return routes;
@@ -114,7 +143,7 @@ export function getRoutes(baseUrl: string = '/') {
 
 ## Estructura del Proyecto
 
-- La carpeta _/my-app_ contiene la Aplicación Host. Proporciona el diseño inicial y algunas páginas.
+- La carpeta _/my-app-vite_ contiene la Aplicación Host. Proporciona el diseño inicial y algunas páginas.
 - La carpeta _/my-page_ contiene la aplicación Micro-Frontend. Proporciona otras sub-páginas para ser renderizadas en la Aplicación Host.
 - La carpeta _/my-vue_ contiene un Micro-Frontend implementado en Vue. Proporciona una sola página.
 
@@ -252,9 +281,9 @@ Ejecutar en terminales separadas:
 El host Vite proxya a los MFEs en dev para resolver los remotes. Si quieres proxy también para `my-vue-comp` en local, añade en `vite.config.ts`:
 
 ```typescript
-"/app/my-vue-comp": { 
-  target: "http://localhost:3002", 
-  rewrite: p => p.replace(/^\/app\/my-vue-comp/, "") 
+"/app/my-vue-comp": {
+  target: "http://localhost:3002",
+  rewrite: p => p.replace(/^\/app\/my-vue-comp/, "")
 }
 ```
 
@@ -267,6 +296,56 @@ El host Vite proxya a los MFEs en dev para resolver los remotes. Si quieres prox
 
 ---
 
+# Migración a Module Federation 2.0
+
+## ¿Por qué migrar?
+
+El plugin anterior `@originjs/vite-plugin-federation` está **abandonado** desde enero 2024 y no es compatible con:
+
+- ❌ Vite 8.x
+- ❌ TypeScript 6.x
+- ❌ Mantenimiento futuro
+
+## Nueva Solución: @module-federation/vite
+
+- ✅ **Plugin oficial** de Module Federation
+- ✅ Compatible con Vite 8.x y TypeScript 6.x
+- ✅ Activamente mantenido (2025+)
+- ✅ Module Federation 2.0 features
+- ✅ Sin vulnerabilidades
+
+## Cambios de Configuración
+
+### Antes (originjs):
+
+```typescript
+import federation from "@originjs/vite-plugin-federation";
+
+federation({
+  name: "myApp",
+  shared: ["lit", "lit-html"],
+});
+```
+
+### Después (module-federation):
+
+```typescript
+import { federation } from "@module-federation/vite";
+
+federation({
+  name: "myApp",
+  shared: {
+    lit: {},
+    "lit-html": {},
+  },
+  dts: false,
+});
+```
+
+Ver **MIGRATION_SUMMARY.md** para detalles completos de la migración.
+
+---
+
 # Referencias
 
 - [Lit](https://lit.dev/)
@@ -274,5 +353,5 @@ El host Vite proxya a los MFEs en dev para resolver los remotes. Si quieres prox
 - [Webpack](https://webpack.js.org/)
 - [Vite](https://vitejs.dev/)
 - [Module Federation](https://module-federation.io/guide/start/index.html)
-- [vite-plugin-federation](https://github.com/originjs/vite-plugin-federation)
+- [@module-federation/vite](https://github.com/module-federation/universe/tree/main/packages/vite) ⭐ Nuevo plugin oficial
 - [Web Components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components)

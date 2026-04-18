@@ -1,16 +1,18 @@
 import { defineConfig } from "vite";
-
-import federation from "@originjs/vite-plugin-federation";
+import { federation } from "@module-federation/vite";
 
 const proxy = {
   "/app/my-page": {
     target: "http://localhost:3000",
-    // changeOrigin: true,
-    rewrite: (path) => path.replace(/^\/app\/my-page/, ""),
+    changeOrigin: true,
+  },
+  "/app/my-vue-comp": {
+    target: "http://localhost:3002",
+    changeOrigin: true,
   },
   "/app/my-vue": {
     target: "http://localhost:3001",
-    rewrite: (path) => path.replace(/^\/app\/my-vue/, ""),
+    changeOrigin: true,
   }
 };
 
@@ -27,14 +29,35 @@ export default defineConfig({
         "./myApp": "./src/routes.ts",
       },
       remotes: {
-        myPage: "/app/my-page/assets/remoteEntry.js",
-        myVue: "/app/my-vue/assets/remoteEntry.js",
-        myVueComp: "/app/my-vue-comp/assets/remoteEntry.js",
-        dummyApp: "dummy.js",
+        myPage: {
+          type: "module",
+          name: "myPage",
+          entry: "/app/my-page/remoteEntry.js",
+        },
+        myVue: {
+          type: "module",
+          name: "myVue",
+          entry: "/app/my-vue/remoteEntry.js",
+        },
+        myVueComp: {
+          type: "module",
+          name: "myVueComp",
+          entry: "/app/my-vue-comp/remoteEntry.js",
+        },
       },
-      shared: ["lit", "lit-html", "lit-element"],
+      shared: {
+        lit: {},
+        "lit-html": {},
+        "lit-element": {},
+      },
+      dts: false,
     }),
   ],
-  server: { proxy },
+  server: { 
+    proxy,
+    fs: {
+      allow: [".."],
+    },
+  },
   preview: { proxy },
 });
