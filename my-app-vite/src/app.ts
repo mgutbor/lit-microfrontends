@@ -4,6 +4,7 @@ import { customElement, property } from "lit/decorators.js";
 import myElementStyle from "./app.style.scss?inline";
 
 import "wcVcEcInd/wcVcEcInd";
+import "wcVcButton/wcVcButton";
 
 import { router } from "./bootstrap";
 
@@ -51,7 +52,13 @@ export class MyApp extends LitElement {
     return html`
       <div class="app">
         <nav>
-          <a href="${this.baseURL}">Home</a>
+          <wc-vc-button
+            systemId="Navigation"
+            icon="home"
+            label="Home"
+            customEvent="counter:increment"
+            .customEventDetail=${{ value: 7 }}
+          ></wc-vc-button>
           <a href="${this.baseURL}page1">Page 1</a>
           <a href="${this.baseURL}page2">Page 2</a>
           <a href="${this.baseURL}my-vue">My Vue</a>

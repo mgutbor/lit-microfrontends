@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WC VC Button</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    
+    <script type="module" src="/index.ts"></script>
+    <style>
+      body {
+        font-family: 'Roboto', Arial, sans-serif;
+        padding: 40px;
+        background-color: #f5f5f5;
+      }
+      
+      .demo-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      
+      h1 {
+        margin-top: 0;
+        color: #333;
+      }
+      
+      .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 24px;
+      }
+      
+      .demo-section {
+        margin-bottom: 32px;
+      }
+      
+      .demo-section h2 {
+        color: #666;
+        font-size: 18px;
+        margin-bottom: 16px;
+      }
+      
+      .log {
+        margin-top: 24px;
+        padding: 16px;
+        background-color: #f9f9f9;
+        border-radius: 4px;
+        border-left: 4px solid #1976d2;
+      }
+      
+      .log h3 {
+        margin-top: 0;
+        font-size: 14px;
+        color: #666;
+      }
+      
+      .log pre {
+        margin: 0;
+        font-size: 12px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-container">
+      <h1>🏠 WC VC Button - Componente Demo</h1>
+      
+      <div class="demo-section">
+        <h2>Botones con diferentes iconos</h2>
+        <div class="button-group">
+          <wc-vc-button
+            url="/home"
+            systemId="Demo"
+            icon="home"
+            label="Inicio"
+          ></wc-vc-button>
+          
+          <wc-vc-button
+            url="/settings"
+            systemId="Demo"
+            icon="settings"
+            label="Configuración"
+          ></wc-vc-button>
+          
+          <wc-vc-button
+            url="/person"
+            systemId="Demo"
+            icon="person"
+            label="Perfil"
+          ></wc-vc-button>
+          
+          <wc-vc-button
+            url="/notifications"
+            systemId="Demo"
+            icon="notifications"
+            label="Notificaciones"
+          ></wc-vc-button>
+        </div>
+      </div>
+      
+      <div class="demo-section">
+        <h2>Botones con estilos personalizados</h2>
+        <div class="button-group">
+          <wc-vc-button
+            url="/success"
+            systemId="Demo"
+            icon="check_circle"
+            label="Éxito"
+            style="--button-bg-color: #4caf50;"
+          ></wc-vc-button>
+          
+          <wc-vc-button
+            url="/warning"
+            systemId="Demo"
+            icon="warning"
+            label="Advertencia"
+            style="--button-bg-color: #ff9800;"
+          ></wc-vc-button>
+          
+          <wc-vc-button
+            url="/error"
+            systemId="Demo"
+            icon="error"
+            label="Error"
+            style="--button-bg-color: #f44336;"
+          ></wc-vc-button>
+        </div>
+      </div>
+      
+      <div class="log">
+        <h3>📋 Último evento:</h3>
+        <pre id="log">Haz click en un botón para ver el evento...</pre>
+      </div>
+    </div>
+
+    <script type="module">
+      document.addEventListener('externalApp:open', (event) => {
+        const log = document.getElementById('log');
+        log.textContent = JSON.stringify(event.detail, null, 2);
+      });
+    </script>
+  </body>
+</html>

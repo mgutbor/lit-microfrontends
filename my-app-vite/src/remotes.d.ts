@@ -17,3 +17,8 @@ declare module "wcVcEcInd/wcVcEcInd" {
   const WcVcEcInd: any;
   export default WcVcEcInd;
 }
+
+declare module "wcVcButton/wcVcButton" {
+  const WcVcButton: any;
+  export default WcVcButton;
+}

@@ -4,8 +4,6 @@ import type { Commands, Context, Route } from "@vaadin/router";
 let routes: Route[] | undefined = undefined;
 
 export function getRoutes(baseURL: string = "/") {
-  console.log("My Vue Components: getRoutes", baseURL);
-
   if (!routes) {
     routes = [
       {

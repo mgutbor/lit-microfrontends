@@ -18,6 +18,10 @@ const proxy = {
     target: "http://localhost:3003",
     changeOrigin: true,
   },
+  "/app/wc-vc-button": {
+    target: "http://localhost:3004",
+    changeOrigin: true,
+  },
 };
 
 export default defineConfig({
@@ -51,6 +55,11 @@ export default defineConfig({
           type: "module",
           name: "wcVcEcInd",
           entry: "/app/wc-vc-ec-ind/remoteEntry.js",
+        },
+        wcVcButton: {
+          type: "module",
+          name: "wcVcButton",
+          entry: "/app/wc-vc-button/remoteEntry.js",
         },
       },
       shared: {

@@ -3,12 +3,15 @@ import { Route } from "@vaadin/router";
 import "./style.css";
 import App from "./App.vue";
 import createAppRouter from "./router";
+import { incrementCounter } from "./store/counterStore";
 
 let $baseURL = "/";
 
 class MyVueElement extends HTMLElement {
   private app: VueApp<Element> | undefined = undefined;
   private router: any | undefined = undefined;
+  private counterIncrementHandler: EventListener | undefined = undefined;
+
   constructor() {
     super();
   }
@@ -25,6 +28,16 @@ class MyVueElement extends HTMLElement {
     this.app = createApp(App);
     this.app.use(this.router.router);
     this.app.mount(this);
+
+    this.counterIncrementHandler = ((event: CustomEvent) => {
+      const incrementValue = event.detail?.value || 1;
+      incrementCounter(incrementValue);
+    }) as EventListener;
+
+    document.addEventListener(
+      "counter:increment",
+      this.counterIncrementHandler,
+    );
   }
 
   disconnectedCallback() {
@@ -32,6 +45,13 @@ class MyVueElement extends HTMLElement {
     this.app = undefined;
 
     this.router?.cleanUp();
+
+    if (this.counterIncrementHandler) {
+      document.removeEventListener(
+        "counter:increment",
+        this.counterIncrementHandler,
+      );
+    }
   }
 }
 
@@ -41,7 +61,6 @@ customElements.get(MyVueTag) || customElements.define(MyVueTag, MyVueElement);
 
 function getComponent(baseURL: string = "/") {
   $baseURL = baseURL;
-  console.log("My Vue: getComponent", baseURL);
   return MyVueTag;
 }
 
@@ -49,7 +68,6 @@ let routes: Route[] | undefined = undefined;
 
 function getRoutes(baseURL: string = "/") {
   $baseURL = baseURL;
-  console.log("My Vue: getRoutes", baseURL);
 
   if (!routes) {
     routes = [
